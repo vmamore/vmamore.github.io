@@ -174,3 +174,7 @@ a:active {
 #sobre p {
   text-transform: none;
 }
+
+.fonte-15px {
+  font-size: 15px;
+}
