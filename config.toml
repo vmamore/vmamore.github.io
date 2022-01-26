@@ -1,4 +1,4 @@
-baseURL = "https://vmamore.github.io/vmamore.github.io"
+baseURL = "https://vmamore.github.io/"
 languageCode = "en-us"
 title = "vmamore's blog"
 theme="archie"
@@ -7,6 +7,7 @@ pygmentsstyle = "monokai"
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
 paginate=4
+publishDir="docs"
 [params]
 	favicon="https://img.icons8.com/officel/16/000000/chevron-right.png"
 	og_image="https://raw.githubusercontent.com/athul/archie/master/images/archie-dark.png"
