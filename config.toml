@@ -1,4 +1,4 @@
-baseURL = "https://athul.github.io/archie/"
+baseURL = "https://vmamore.github.io/vmamore.github.io"
 languageCode = "en-us"
 title = "vmamore's blog"
 theme="archie"
@@ -13,7 +13,6 @@ paginate=4
 	mode="auto"
 	useCDN=false
 	subtitle = "Hello! My name is Vinicius Mamoré and I'm a Software Developer"
-	description = "Archie is a Minimal and Clean theme for Hugo"
 
 [[params.social]]
 name = "GitHub"
