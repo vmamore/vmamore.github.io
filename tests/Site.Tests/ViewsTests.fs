@@ -59,22 +59,28 @@ let ``pt page declares its language and links to en`` () =
     contains "<!DOCTYPE html>" html
     contains "<html lang=\"pt-BR\">" html
     contains "<span class=\"current\" aria-current=\"page\">pt</span>" html
-    contains "<a href=\"/en/\" hreflang=\"en\" lang=\"en\">en</a>" html
+    contains "<a href=\"/\" hreflang=\"en\" lang=\"en\">en</a>" html
 
 [<Fact>]
 let ``en page declares its language and links to pt`` () =
     let html = renderFor En
     contains "<html lang=\"en\">" html
     contains "<span class=\"current\" aria-current=\"page\">en</span>" html
-    contains "<a href=\"/\" hreflang=\"pt-BR\" lang=\"pt-BR\">pt</a>" html
+    contains "<a href=\"/pt/\" hreflang=\"pt-BR\" lang=\"pt-BR\">pt</a>" html
+
+[<Fact>]
+let ``language switch lists the default language first`` () =
+    contains "aria-label=\"Language / Idioma\"><span class=\"current\" aria-current=\"page\">en</span> / <a href=\"/pt/\"" (renderFor En)
+    contains "aria-label=\"Language / Idioma\"><a href=\"/\" hreflang=\"en\" lang=\"en\">en</a> / <span class=\"current\"" (renderFor Pt)
 
 [<Fact>]
 let ``head has canonical and hreflang alternates`` () =
     let html = renderFor En
-    contains "<link rel=\"canonical\" href=\"https://vmamore.com.br/en/\">" html
-    contains "<link rel=\"alternate\" hreflang=\"pt-BR\" href=\"https://vmamore.com.br/\">" html
-    contains "<link rel=\"alternate\" hreflang=\"en\" href=\"https://vmamore.com.br/en/\">" html
+    contains "<link rel=\"canonical\" href=\"https://vmamore.com.br/\">" html
+    contains "<link rel=\"alternate\" hreflang=\"pt-BR\" href=\"https://vmamore.com.br/pt/\">" html
+    contains "<link rel=\"alternate\" hreflang=\"en\" href=\"https://vmamore.com.br/\">" html
     contains "<link rel=\"alternate\" hreflang=\"x-default\" href=\"https://vmamore.com.br/\">" html
+    contains "<link rel=\"canonical\" href=\"https://vmamore.com.br/pt/\">" (renderFor Pt)
     contains "<link rel=\"stylesheet\" href=\"/style.css\">" html
 
 [<Fact>]
@@ -168,7 +174,7 @@ let ``only external links open in a new tab`` () =
     // 1 profile link + 4 stack links + GitHub Pages + source
     Assert.Equal(7, count "target=\"_blank\"" html)
     Assert.Equal(7, count "rel=\"noopener noreferrer\"" html)
-    contains "<a href=\"/en/\" hreflang=\"en\" lang=\"en\">en</a>" html
+    contains "<a href=\"/\" hreflang=\"en\" lang=\"en\">en</a>" html
 
 [<Fact>]
 let ``page ends with the caret and has no email`` () =

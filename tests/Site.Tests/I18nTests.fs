@@ -59,10 +59,10 @@ let ``fullYearsBetween counts only completed years`` (year: int, month: int, exp
 
 [<Fact>]
 let ``paths and output files per language`` () =
-    Assert.Equal("/", pagePath Pt)
-    Assert.Equal("/en/", pagePath En)
-    Assert.Equal("index.html", outputFile Pt)
-    Assert.Equal("en/index.html", outputFile En)
+    Assert.Equal("/", pagePath En)
+    Assert.Equal("/pt/", pagePath Pt)
+    Assert.Equal("index.html", outputFile En)
+    Assert.Equal("pt/index.html", outputFile Pt)
     Assert.Equal("pt-BR", htmlLang Pt)
     Assert.Equal("en", code En)
 

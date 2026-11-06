@@ -38,7 +38,7 @@ let ``isSafeOutDir refuses the repo, its ancestors and its source folders`` () =
 let ``build writes both pages and copies static files recursively`` () =
     let out = build ()
     for file in
-        [ "index.html"; "en/index.html"; "style.css"; "CNAME"; "favicon.svg"
+        [ "index.html"; "pt/index.html"; "style.css"; "CNAME"; "favicon.svg"
           "fonts/JetBrainsMono-Regular.woff2"; "fonts/JetBrainsMono-SemiBold.woff2"; "fonts/OFL.txt" ] do
         Assert.True(File.Exists(Path.Combine(out, file)), sprintf "missing %s" file)
     Assert.Equal("vmamore.com.br", File.ReadAllText(Path.Combine(out, "CNAME")).Trim())
@@ -46,8 +46,8 @@ let ``build writes both pages and copies static files recursively`` () =
 [<Fact>]
 let ``build fills in years of experience in both languages`` () =
     let out = build ()
-    let pt = File.ReadAllText(Path.Combine(out, "index.html"))
-    let en = File.ReadAllText(Path.Combine(out, "en", "index.html"))
+    let en = File.ReadAllText(Path.Combine(out, "index.html"))
+    let pt = File.ReadAllText(Path.Combine(out, "pt", "index.html"))
     contains "8 anos de experiência" pt
     contains "8 years of experience" en
     notContains "{{years}}" pt
@@ -58,7 +58,7 @@ let ``build fills in years of experience in both languages`` () =
 [<Fact>]
 let ``every root-relative link and font url resolves to a built file`` () =
     let out = build ()
-    let pages = [ "index.html"; "en/index.html" ] |> List.map (fun f -> File.ReadAllText(Path.Combine(out, f)))
+    let pages = [ "index.html"; "pt/index.html" ] |> List.map (fun f -> File.ReadAllText(Path.Combine(out, f)))
     let css = File.ReadAllText(Path.Combine(out, "style.css"))
     let fromPages =
         pages
@@ -66,7 +66,7 @@ let ``every root-relative link and font url resolves to a built file`` () =
             [ for m in Regex.Matches(html, "(?:href|src)=\"(/[^\"]*)\"") -> m.Groups.[1].Value ])
     let fromCss = [ for m in Regex.Matches(css, "url\\(\"(/[^\"]+)\"\\)") -> m.Groups.[1].Value ]
     let urls = fromPages @ fromCss |> List.distinct
-    Assert.Contains("/en/", urls)
+    Assert.Contains("/pt/", urls)
     Assert.Contains("/fonts/JetBrainsMono-SemiBold.woff2", urls)
     for url in urls do
         Assert.True((Server.resolve out url).IsSome, sprintf "broken link %s" url)
