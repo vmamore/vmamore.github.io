@@ -49,6 +49,10 @@ module YearMonth =
     let ofDateTime (date: DateTime) = { Year = date.Year; Month = date.Month }
 
 module Company =
+    /// True while any role at the company is ongoing.
+    let isCurrent (company: Company) =
+        company.Roles |> List.exists (fun r -> r.End.IsNone)
+
     /// Earliest role start → latest role end, or None when any role is current.
     let span (company: Company) : YearMonth * YearMonth option =
         let start = company.Roles |> List.map (fun r -> r.Start) |> List.min

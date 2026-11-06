@@ -42,6 +42,13 @@ let ``Company.span is open-ended when any role is current`` () =
     Assert.Equal((ym 2022 1, None), Company.span acme)
 
 [<Fact>]
+let ``Company.isCurrent is true only when some role has no end`` () =
+    let now: Company = { Name = "Now"; Dir = "now"; Roles = [ role (ym 2025 12) None ] }
+    let old: Company = { Name = "Old"; Dir = "old"; Roles = [ role (ym 2020 1) (Some(ym 2021 1)) ] }
+    Assert.True(Company.isCurrent now)
+    Assert.False(Company.isCurrent old)
+
+[<Fact>]
 let ``Profile.careerStart is the earliest role start across companies`` () =
     let a: Company = { Name = "A"; Dir = "a"; Roles = [ role (ym 2020 6) None ] }
     let b: Company = { Name = "B"; Dir = "b"; Roles = [ role (ym 2018 8) (Some(ym 2019 4)) ] }

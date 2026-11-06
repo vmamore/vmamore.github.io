@@ -83,3 +83,8 @@ let ``footer strings per language`` () =
     Assert.Equal("built with", (strings En).BuiltWith)
     Assert.Equal("hosted on", (strings En).HostedOn)
     Assert.Equal("source", (strings En).Source)
+
+[<Fact>]
+let ``current job tag per language`` () =
+    Assert.Equal("atual", (strings Pt).CurrentTag)
+    Assert.Equal("current", (strings En).CurrentTag)

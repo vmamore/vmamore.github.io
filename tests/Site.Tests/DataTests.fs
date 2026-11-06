@@ -27,15 +27,22 @@ let ``companies and roles are newest first`` () =
         Assert.Equal<YearMonth list>(List.sortDescending roleStarts, roleStarts)
 
 [<Fact>]
-let ``only Mindbody is current and it has title and dates only`` () =
+let ``only Mindbody is current, as SWE III on the Branded App`` () =
     let current =
         [ for c in profile.Companies do
               for r in c.Roles do
                   if r.End.IsNone then c.Name, r ]
     let name, role = Assert.Single current
     Assert.Equal("Mindbody", name)
-    Assert.Equal(None, role.Summary)
-    Assert.Empty(role.Tech)
+    Assert.Equal({ Pt = "SWE III"; En = "SWE III" }, role.Title)
+    contains "Branded App" (Localized.get Pt role.Summary.Value)
+    contains "Branded App" (Localized.get En role.Summary.Value)
+    Assert.Contains(".NET 10", role.Tech)
+    Assert.Contains("Fastlane", role.Tech)
+
+[<Fact>]
+let ``headline is SWE III at Mindbody in both languages`` () =
+    Assert.Equal({ Pt = "SWE III @ Mindbody"; En = "SWE III @ Mindbody" }, profile.Headline)
 
 [<Fact>]
 let ``company dirs are unique lowercase folder names`` () =

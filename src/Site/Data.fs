@@ -10,11 +10,18 @@ let private mindbody: Company =
     { Name = "Mindbody"
       Dir = "mindbody"
       Roles =
-        [ { Title = t "Engenheiro de Software" "Software Engineer"
+        [ { Title = same "SWE III"
             Start = ym 2025 12
             End = None
-            Summary = None
-            Tech = [] } ] }
+            Summary =
+              Some(
+                  t
+                      "Atuo no backend do Branded App, o aplicativo móvel com a marca de cada negócio da Mindbody, onde os clientes agendam aulas e horários, compram serviços e usam seus pacotes. Também estou migrando aplicações legadas em PHP para uma nova stack com C# e Next.js."
+                      "I work on the backend of the Branded App, the custom-branded mobile app Mindbody businesses give their clients to book classes and appointments, buy services and redeem passes. I'm also migrating legacy PHP applications to a new stack with C# and Next.js."
+              )
+            Tech =
+              [ "C#"; ".NET 10"; "PHP"; "Ruby"; "Next.js"; "MySQL"; "DynamoDB"; "AWS"; "New Relic"
+                "GitHub Actions"; "Azure DevOps"; "Fastlane" ] } ] }
 
 let private stone: Company =
     { Name = "Stone"
@@ -91,7 +98,7 @@ let private imagetech: Company =
 
 let profile: Profile =
     { Name = "Vinicius Mamoré"
-      Headline = t "Engenheiro de Software @ Mindbody" "Software Engineer @ Mindbody"
+      Headline = same "SWE III @ Mindbody"
       Location = "Campo Grande, MS"
       Links =
         [ "GitHub", "https://github.com/vmamore"

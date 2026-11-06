@@ -102,6 +102,15 @@ let ``multi-role company shows its dir, full name and span`` () =
     contains "jan 2022 – atual · 4 anos e 11 meses" html
 
 [<Fact>]
+let ``current company is tagged and past companies are marked as past`` () =
+    let pt = renderFor Pt
+    contains "<li class=\"company current\">" pt
+    contains "<li class=\"company past\">" pt
+    contains "<strong title=\"Acme Ltda\">acme/</strong><span class=\"tag\">● atual</span>" pt
+    Assert.Equal(1, count "class=\"tag\"" pt)
+    contains "<span class=\"tag\">● current</span>" (renderFor En)
+
+[<Fact>]
 let ``single-role company does not repeat the role dates`` () =
     let html = renderFor Pt
     contains "<strong title=\"Solo\">solo/</strong>" html

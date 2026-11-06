@@ -21,6 +21,8 @@
   --muted: #8a877f;
   --rule: #2a2d31;
   --accent: #7ee08f;
+  --accent-dim: #5a9a66; /* 5.34:1 on --bg */
+  --fg-past: #b3b0a9;    /* between --fg and --muted, so past titles stay apart from their dates */
   --mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, Menlo, monospace;
 }
 
@@ -66,6 +68,12 @@ section { display: flex; flex-direction: column; gap: .4rem; }
 .summary { color: var(--fg); }
 .tech { color: var(--muted); }
 .tech::before { content: "# "; }
+/* Current job stands out; past jobs step back but stay readable (muted is 5.01:1 on --bg). */
+.tag { color: var(--accent); font-size: .8rem; }
+.company.past .company-head strong { color: var(--accent-dim); }
+.company.past .role-title { color: var(--fg-past); }
+.company.past .summary { color: var(--muted); }
+
 .education li { display: flex; flex-direction: column; }
 .education strong { font-weight: 600; }
 
