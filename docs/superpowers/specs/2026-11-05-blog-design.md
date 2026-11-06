@@ -59,7 +59,6 @@ type Role =
     { Title: Localized
       Start: YearMonth
       End: YearMonth option          // None = current
-      Location: string option
       Summary: Localized option      // None = title and dates only
       Tech: string list }
 type Company = { Name: string; Dir: string; Roles: Role list }   // Dir = terminal folder name, e.g. "stone"; roles newest first
@@ -147,6 +146,11 @@ Reference preview: https://claude.ai/artifact/HzsqaSR7acdtyPGgv3apz1 (option B, 
   last, `└─` for the last), title + dates/duration (muted), summary, and a tech
   line in muted prefixed by `# ` (full list, comma-separated).
 - Language toggle top-left: `pt / en`, current language in bold accent.
+- Footer: `© <year> Vinicius Mamoré`, then a comment line (`# ` prefix by CSS):
+  pt `feito com F#, Giraffe.ViewEngine, Markdig, JetBrains Mono · hospedado no
+  GitHub Pages · código-fonte`; en `built with … · hosted on GitHub Pages · source`.
+  Each tool links to its site; the last item links to
+  `https://github.com/vmamore/vmamore.github.io`.
 - A blinking block caret at the end of the page; static when
   `prefers-reduced-motion: reduce`.
 - No JavaScript, no images in v1 (favicon only).
