@@ -8,6 +8,7 @@
   <ItemGroup>
     <Compile Include="TestHelpers.fs" />
     <Compile Include="DomainTests.fs" />
+    <Compile Include="I18nTests.fs" />
   </ItemGroup>
 
   <ItemGroup>
