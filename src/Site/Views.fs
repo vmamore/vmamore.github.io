@@ -19,6 +19,10 @@ let escape (s: string) =
 
 let text (s: string) = rawText (escape s)
 
+/// A link to another site: opens in a new tab without giving it access to this page.
+let externalLink (url: string) (label: string) =
+    a [ _href url; attr "target" "_blank"; attr "rel" "noopener noreferrer" ] [ text label ]
+
 let private dateLine lang today (start: YearMonth) (finish: YearMonth option) =
     sprintf "%s · %s" (formatRange lang start finish) (duration lang start finish today)
 
@@ -84,16 +88,16 @@ let private joinWith (separator: XmlNode) (nodes: XmlNode list) =
 
 let private footerView lang (today: YearMonth) (name: string) =
     let s = strings lang
-    let stackLinks = stack |> List.map (fun (label, url) -> a [ _href url ] [ text label ])
+    let stackLinks = stack |> List.map (fun (label, url) -> externalLink url label)
     footer [] [
         p [] [ text (sprintf "© %d %s" today.Year name) ]
         p [ _class "built" ] (
             [ text (s.BuiltWith + " ") ]
             @ joinWith (text ", ") stackLinks
             @ [ text (sprintf " · %s " s.HostedOn)
-                a [ _href "https://pages.github.com" ] [ text "GitHub Pages" ]
+                externalLink "https://pages.github.com" "GitHub Pages"
                 text " · "
-                a [ _href sourceUrl ] [ text s.Source ] ]
+                externalLink sourceUrl s.Source ]
         )
     ]
 
@@ -128,7 +132,7 @@ let page (model: PageModel) =
                         h1 [ _class "name" ] [ text prof.Name ]
                         p [ _class "dim" ] [ text (sprintf "%s · %s" (Localized.get lang prof.Headline) prof.Location) ]
                         p [ _class "links" ] (
-                            prof.Links |> List.map (fun (label, url) -> a [ _href url ] [ text (label.ToLowerInvariant()) ])
+                            prof.Links |> List.map (fun (label, url) -> externalLink url (label.ToLowerInvariant()))
                         )
                     ]
                     section [ _id "about" ] [
