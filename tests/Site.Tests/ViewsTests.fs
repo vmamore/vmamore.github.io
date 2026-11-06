@@ -134,7 +134,7 @@ let ``footer credits the stack, the host and links the source`` () =
     contains
         ("feito com "
          + ext "https://fsharp.org" "F#" + ", "
-         + ext "https://github.com/giraffe-fsharp/Giraffe.ViewEngine" "Giraffe.ViewEngine" + ", "
+         + ext "https://github.com/Lanayx/Oxpecker" "Oxpecker.ViewEngine" + ", "
          + ext "https://github.com/xoofx/markdig" "Markdig" + ", "
          + ext "https://www.jetbrains.com/lp/mono/" "JetBrains Mono")
         pt
