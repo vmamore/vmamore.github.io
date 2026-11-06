@@ -45,12 +45,20 @@ let private roleView lang today (glyph: string) (role: Role) =
         }
     }
 
+/// The company's logo, or its initial in a tile when there is no logo.
+/// Decorative: the folder name right after it already names the company.
+let private logoView (company: Company) : HtmlElement =
+    match company.Logo with
+    | Some src -> img(class' = "logo", src = src, alt = "", width = 18, height = 18)
+    | None -> span(class' = "logo monogram", ariaHidden = true) { text (company.Name.Substring(0, 1).ToUpperInvariant()) }
+
 let private companyView lang today (company: Company) =
     let start, finish = Company.span company
     let lastIndex = company.Roles.Length - 1
     let isCurrent = Company.isCurrent company
     li(class' = (if isCurrent then "company current" else "company past")) {
         p(class' = "company-head") {
+            logoView company
             strong(title = company.Name) { text (company.Dir + "/") }
             if isCurrent then
                 span(class' = "tag") { text ("● " + (strings lang).CurrentTag) }

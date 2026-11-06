@@ -39,6 +39,7 @@ let ``paths outside the site folder are rejected`` () =
 [<InlineData("a.css", "text/css; charset=utf-8")>]
 [<InlineData("a.svg", "image/svg+xml")>]
 [<InlineData("a.woff2", "font/woff2")>]
+[<InlineData("a.png", "image/png")>]
 [<InlineData("a.txt", "text/plain; charset=utf-8")>]
 [<InlineData("CNAME", "application/octet-stream")>]
 let ``content types by extension`` (file: string, expected: string) =
