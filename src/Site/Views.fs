@@ -48,9 +48,12 @@ let private roleView lang today (glyph: string) (role: Role) =
 let private companyView lang today (company: Company) =
     let start, finish = Company.span company
     let lastIndex = company.Roles.Length - 1
-    li(class' = "company") {
+    let isCurrent = Company.isCurrent company
+    li(class' = (if isCurrent then "company current" else "company past")) {
         p(class' = "company-head") {
             strong(title = company.Name) { text (company.Dir + "/") }
+            if isCurrent then
+                span(class' = "tag") { text ("● " + (strings lang).CurrentTag) }
             if company.Roles.Length > 1 then
                 span(class' = "dim") { text (dateLine lang today start finish) }
         }

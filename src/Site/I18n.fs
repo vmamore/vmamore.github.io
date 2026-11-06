@@ -29,7 +29,8 @@ type Strings =
       Description: string
       BuiltWith: string
       HostedOn: string
-      Source: string }
+      Source: string
+      CurrentTag: string }
 
 let strings lang =
     match lang with
@@ -40,7 +41,8 @@ let strings lang =
           Description = "Vinicius Mamoré, engenheiro de software backend: sobre mim e experiência profissional."
           BuiltWith = "feito com"
           HostedOn = "hospedado no"
-          Source = "código-fonte" }
+          Source = "código-fonte"
+          CurrentTag = "atual" }
     | En ->
         { CmdAbout = "cat about.md"
           CmdExperience = "ls experience/"
@@ -48,7 +50,8 @@ let strings lang =
           Description = "Vinicius Mamoré, backend software engineer: about me and work experience."
           BuiltWith = "built with"
           HostedOn = "hosted on"
-          Source = "source" }
+          Source = "source"
+          CurrentTag = "current" }
 
 let private monthsPt =
     [| "jan"; "fev"; "mar"; "abr"; "mai"; "jun"; "jul"; "ago"; "set"; "out"; "nov"; "dez" |]
