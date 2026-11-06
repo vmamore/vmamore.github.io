@@ -33,7 +33,9 @@ type Strings =
       BuiltWith: string
       HostedOn: string
       Source: string
-      CurrentTag: string }
+      CurrentTag: string
+      Remote: string
+      OnSite: string }
 
 let strings lang =
     match lang with
@@ -45,7 +47,9 @@ let strings lang =
           BuiltWith = "feito com"
           HostedOn = "hospedado no"
           Source = "código-fonte"
-          CurrentTag = "atual" }
+          CurrentTag = "atual"
+          Remote = "remoto"
+          OnSite = "presencial" }
     | En ->
         { CmdAbout = "cat about.md"
           CmdExperience = "ls experience/"
@@ -54,7 +58,9 @@ let strings lang =
           BuiltWith = "built with"
           HostedOn = "hosted on"
           Source = "source"
-          CurrentTag = "current" }
+          CurrentTag = "current"
+          Remote = "remote"
+          OnSite = "on-site" }
 
 let private monthsPt =
     [| "jan"; "fev"; "mar"; "abr"; "mai"; "jun"; "jul"; "ago"; "set"; "out"; "nov"; "dez" |]

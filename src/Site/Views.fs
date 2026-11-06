@@ -35,7 +35,9 @@ let private roleView lang today (glyph: string) (role: Role) =
         div(class' = "role-body") {
             p(class' = "role-head") {
                 span(class' = "role-title") { text (Localized.get lang role.Title) }
-                span(class' = "dim") { text (dateLine lang today role.Start role.End) }
+                let s = strings lang
+                let mode = if role.Remote then s.Remote else s.OnSite
+                span(class' = "dim") { text (dateLine lang today role.Start role.End + " · " + mode) }
             }
             match role.Summary with
             | Some summary -> p(class' = "summary") { text (Localized.get lang summary) }
@@ -59,11 +61,18 @@ let private companyView lang today (company: Company) =
     li(class' = (if isCurrent then "company current" else "company past")) {
         p(class' = "company-head") {
             logoView company
-            strong(title = company.Name) { text (company.Dir + "/") }
+            a(class' = "company-link", href = company.Url, target = "_blank", rel = "noopener noreferrer", title = company.Name) {
+                strong() { text (company.Dir + "/") }
+            }
             if isCurrent then
                 span(class' = "tag") { text ("● " + (strings lang).CurrentTag) }
-            if company.Roles.Length > 1 then
-                span(class' = "dim") { text (dateLine lang today start finish) }
+            // Single-role companies show only where they are; the role line already has the dates.
+            span(class' = "dim") {
+                if company.Roles.Length > 1 then
+                    text (company.Location + " · " + dateLine lang today start finish)
+                else
+                    text company.Location
+            }
         }
         ol(class' = "roles") {
             for i, role in List.indexed company.Roles do

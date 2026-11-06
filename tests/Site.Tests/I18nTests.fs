@@ -85,6 +85,13 @@ let ``footer strings per language`` () =
     Assert.Equal("source", (strings En).Source)
 
 [<Fact>]
+let ``work mode per language`` () =
+    Assert.Equal("remoto", (strings Pt).Remote)
+    Assert.Equal("presencial", (strings Pt).OnSite)
+    Assert.Equal("remote", (strings En).Remote)
+    Assert.Equal("on-site", (strings En).OnSite)
+
+[<Fact>]
 let ``current job tag per language`` () =
     Assert.Equal("atual", (strings Pt).CurrentTag)
     Assert.Equal("current", (strings En).CurrentTag)

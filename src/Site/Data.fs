@@ -10,6 +10,8 @@ let private mindbody: Company =
     { Name = "Mindbody"
       Dir = "mindbody"
       Logo = Some "/logos/mindbody.png"
+      Url = "https://www.mindbodyonline.com"
+      Location = "San Luis Obispo, CA, USA"
       Roles =
         [ { Title = same "SWE III"
             Start = ym 2025 12
@@ -22,12 +24,15 @@ let private mindbody: Company =
               )
             Tech =
               [ "C#"; ".NET 10"; "PHP"; "Ruby"; "Next.js"; "MySQL"; "DynamoDB"; "AWS"; "New Relic"
-                "GitHub Actions"; "Azure DevOps"; "Fastlane" ] } ] }
+                "GitHub Actions"; "Azure DevOps"; "Fastlane" ]
+            Remote = true } ] }
 
 let private stone: Company =
     { Name = "Stone"
       Dir = "stone"
       Logo = Some "/logos/stone.png"
+      Url = "https://www.stone.com.br"
+      Location = "Rio de Janeiro, RJ"
       Roles =
         [ { Title = t "Engenheiro de Software Sênior" "Senior Software Engineer"
             Start = ym 2025 4
@@ -41,22 +46,27 @@ let private stone: Company =
             Tech =
               [ "C#"; "ASP.NET 9"; "ASP.NET Framework 4.7"; "SQL Server"; "PostgreSQL"; "RabbitMQ"; "Redis"
                 "K8S"; "Azure"; "Prometheus"; "Grafana"; "Splunk"; "OpenTelemetry"; "GitHub Actions"
-                "Azure Pipelines"; "EF Core"; "Dapper"; "SpecFlow" ] }
+                "Azure Pipelines"; "EF Core"; "Dapper"; "SpecFlow" ]
+            Remote = true }
           { Title = same "SWE III"
             Start = ym 2021 12
             End = Some(ym 2025 3)
             Summary = None
-            Tech = [] }
+            Tech = []
+            Remote = true }
           { Title = same "SWE II"
             Start = ym 2020 12
             End = Some(ym 2021 11)
             Summary = None
-            Tech = [] } ] }
+            Tech = []
+            Remote = true } ] }
 
 let private digix: Company =
     { Name = "Digix Soluções em TI"
       Dir = "digix"
       Logo = Some "/logos/digix.png"
+      Url = "https://www.digix.com.br"
+      Location = "Campo Grande, MS"
       Roles =
         [ { Title = t "Engenheiro de Software" "Software Engineer"
             Start = ym 2020 6
@@ -67,12 +77,15 @@ let private digix: Company =
                       "Contribuí com o Papel Zero, solução que ajuda governos a migrar processos físicos (educacionais, licitações) para o meio eletrônico."
                       "Contributed to Papel Zero, a solution that helps governments move paper-based processes (education, public bids) to digital."
               )
-            Tech = [ "C# (ASP.NET MVC 4.5)"; "Aurelia"; "SQL Server"; "Azure" ] } ] }
+            Tech = [ "C# (ASP.NET MVC 4.5)"; "Aurelia"; "SQL Server"; "Azure" ]
+            Remote = true } ] }
 
 let private db1: Company =
     { Name = "DB1 Global Software"
       Dir = "db1"
       Logo = Some "/logos/db1.png"
+      Url = "https://db1group.com"
+      Location = "Maringá, PR"
       Roles =
         [ { Title = t "Engenheiro de Software" "Software Engineer"
             Start = ym 2019 5
@@ -83,12 +96,15 @@ let private db1: Company =
                       "Trabalhei remotamente como terceirizado em um projeto educacional nacional (SENAC), focado em dois contextos principais: Financeiro e Matrículas."
                       "Worked remotely as an outsourced developer on a national education project (SENAC), focused on two main contexts: Financial and Enrollment."
               )
-            Tech = [ "C# (ASP.NET Core 2.2)"; "Angular 4"; "SQL Server"; "Azure" ] } ] }
+            Tech = [ "C# (ASP.NET Core 2.2)"; "Angular 4"; "SQL Server"; "Azure" ]
+            Remote = true } ] }
 
 let private imagetech: Company =
     { Name = "Grupo Imagetech"
       Dir = "imagetech"
       Logo = Some "/logos/imagetech.svg"
+      Url = "https://www.grupoimagetech.com.br"
+      Location = "Campo Grande, MS"
       Roles =
         [ { Title = t "Engenheiro de Software" "Software Engineer"
             Start = ym 2018 8
@@ -99,7 +115,8 @@ let private imagetech: Company =
                       "Minha primeira experiência como desenvolvedor em equipe. Contribuí com o Dívida Ativa, projeto jurídico do Estado de Mato Grosso do Sul."
                       "My first experience working as a developer on a team. Contributed to Dívida Ativa, a legal project of the State of Mato Grosso do Sul."
               )
-            Tech = [ "C# (ASP.NET MVC 4.5)"; "jQuery"; "Bootstrap"; "SQL Server"; "Azure" ] } ] }
+            Tech = [ "C# (ASP.NET MVC 4.5)"; "jQuery"; "Bootstrap"; "SQL Server"; "Azure" ]
+            Remote = false } ] }
 
 let profile: Profile =
     { Name = "Vinicius Mamoré"

@@ -63,6 +63,8 @@ section { display: flex; flex-direction: column; gap: .4rem; }
 .logo { width: 18px; height: 18px; flex: none; border-radius: 4px; background: #fff; object-fit: contain; }
 .monogram { display: inline-grid; place-items: center; background: var(--rule); color: var(--fg); font-size: .7rem; font-weight: 600; line-height: 1; }
 .company-head strong { color: var(--accent); font-weight: 600; }
+.company-link { text-decoration: none; }
+.company-link:hover, .company-link:focus-visible { text-decoration: underline; }
 .role { display: grid; grid-template-columns: 2ch 1fr; column-gap: 1ch; }
 .branch { color: var(--muted); }
 .role-body { min-width: 0; display: flex; flex-direction: column; }

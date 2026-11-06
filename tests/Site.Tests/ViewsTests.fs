@@ -5,26 +5,31 @@ open Site.Domain
 open Site.Views
 open TestHelpers
 
-let private role title start finish summary tech : Role =
+let private role title start finish summary tech remote : Role =
     { Title = { Pt = title + " pt"; En = title + " en" }
       Start = start
       End = finish
       Summary = summary
-      Tech = tech }
+      Tech = tech
+      Remote = remote }
 
 let private acme: Company =
     { Name = "Acme Ltda"
       Dir = "acme"
       Logo = Some "/logos/acme.png"
+      Url = "https://acme.example"
+      Location = "Maringá, PR"
       Roles =
-        [ role "Senior" (ym 2024 1) None (Some { Pt = "Resumo"; En = "Summary" }) [ "F#"; "SQL" ]
-          role "Junior" (ym 2022 1) (Some(ym 2023 12)) None [] ] }
+        [ role "Senior" (ym 2024 1) None (Some { Pt = "Resumo"; En = "Summary" }) [ "F#"; "SQL" ] true
+          role "Junior" (ym 2022 1) (Some(ym 2023 12)) None [] true ] }
 
 let private solo: Company =
     { Name = "Solo"
       Dir = "solo"
       Logo = None
-      Roles = [ role "Dev" (ym 2020 1) (Some(ym 2021 6)) None [] ] }
+      Url = "https://solo.example"
+      Location = "Campo Grande, MS"
+      Roles = [ role "Dev" (ym 2020 1) (Some(ym 2021 6)) None [] false ] }
 
 let private sample: Profile =
     { Name = "Ana Teste"
@@ -103,32 +108,46 @@ let ``whoami block shows name, headline, location and lowercase links`` () =
 let ``about html is inserted as-is`` () =
     contains "<p>Olá <em>mundo</em></p>" (renderFor Pt)
 
+/// The company folder name links to the company's site in a new tab.
+let private companyLink (url: string) (name: string) (dir: string) =
+    sprintf "<a class=\"company-link\" href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"%s\"><strong>%s/</strong></a>" url name dir
+
 [<Fact>]
-let ``multi-role company shows its dir, full name and span`` () =
+let ``multi-role company shows its linked dir, location and span`` () =
     let html = renderFor Pt
-    contains "<strong title=\"Acme Ltda\">acme/</strong>" html
-    contains "jan 2022 – atual · 4 anos e 11 meses" html
+    contains (companyLink "https://acme.example" "Acme Ltda" "acme") html
+    contains "<span class=\"dim\">Maringá, PR · jan 2022 – atual · 4 anos e 11 meses</span>" html
 
 [<Fact>]
 let ``current company is tagged and past companies are marked as past`` () =
     let pt = renderFor Pt
     contains "<li class=\"company current\">" pt
     contains "<li class=\"company past\">" pt
-    contains "<strong title=\"Acme Ltda\">acme/</strong><span class=\"tag\">● atual</span>" pt
+    contains (companyLink "https://acme.example" "Acme Ltda" "acme" + "<span class=\"tag\">● atual</span>") pt
     Assert.Equal(1, count "class=\"tag\"" pt)
     contains "<span class=\"tag\">● current</span>" (renderFor En)
 
 [<Fact>]
 let ``each company shows its logo, or a monogram when it has none`` () =
     let pt = renderFor Pt
-    contains "<img class=\"logo\" src=\"/logos/acme.png\" alt=\"\" width=\"18\" height=\"18\"><strong title=\"Acme Ltda\">" pt
-    contains "<span class=\"logo monogram\" aria-hidden=\"true\">S</span><strong title=\"Solo\">" pt
+    contains ("<img class=\"logo\" src=\"/logos/acme.png\" alt=\"\" width=\"18\" height=\"18\">" + companyLink "https://acme.example" "Acme Ltda" "acme") pt
+    contains ("<span class=\"logo monogram\" aria-hidden=\"true\">S</span>" + companyLink "https://solo.example" "Solo" "solo") pt
 
 [<Fact>]
-let ``single-role company does not repeat the role dates`` () =
+let ``single-role company shows only its location, not the role dates again`` () =
     let html = renderFor Pt
-    contains "<strong title=\"Solo\">solo/</strong>" html
+    contains (companyLink "https://solo.example" "Solo" "solo" + "<span class=\"dim\">Campo Grande, MS</span>") html
     Assert.Equal(1, count "jan 2020 – jun 2021 · 1 ano e 6 meses" html)
+
+[<Fact>]
+let ``every role states whether it was remote or on-site`` () =
+    let pt = renderFor Pt
+    contains "jan 2024 – atual · 2 anos e 11 meses · remoto" pt
+    contains "jan 2022 – dez 2023 · 2 anos · remoto" pt
+    contains "jan 2020 – jun 2021 · 1 ano e 6 meses · presencial" pt
+    let en = renderFor En
+    contains "Jan 2024 – Present · 2 years 11 months · remote" en
+    contains "Jan 2020 – Jun 2021 · 1 year 6 months · on-site" en
 
 [<Fact>]
 let ``roles use tree glyphs with the last one closing the branch`` () =
@@ -171,9 +190,9 @@ let ``footer credits the stack, the host and links the source`` () =
 [<Fact>]
 let ``only external links open in a new tab`` () =
     let html = renderFor Pt
-    // 1 profile link + 4 stack links + GitHub Pages + source
-    Assert.Equal(7, count "target=\"_blank\"" html)
-    Assert.Equal(7, count "rel=\"noopener noreferrer\"" html)
+    // 1 profile link + 2 company links + 4 stack links + GitHub Pages + source
+    Assert.Equal(9, count "target=\"_blank\"" html)
+    Assert.Equal(9, count "rel=\"noopener noreferrer\"" html)
     contains "<a href=\"/\" hreflang=\"en\" lang=\"en\">en</a>" html
 
 [<Fact>]

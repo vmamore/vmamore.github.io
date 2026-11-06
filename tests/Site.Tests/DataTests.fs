@@ -52,6 +52,27 @@ let ``company dirs are unique lowercase folder names`` () =
         Assert.Matches(Regex("^[a-z0-9-]+$"), d)
 
 [<Fact>]
+let ``every company has an https site and a headquarters location`` () =
+    for c in profile.Companies do
+        Assert.StartsWith("https://", c.Url)
+        Assert.False(System.String.IsNullOrWhiteSpace c.Location, sprintf "%s has no location" c.Name)
+    let locations = profile.Companies |> List.map (fun c -> c.Dir, c.Location)
+    Assert.Equal<(string * string) list>(
+        [ "mindbody", "San Luis Obispo, CA, USA"
+          "stone", "Rio de Janeiro, RJ"
+          "digix", "Campo Grande, MS"
+          "db1", "Maringá, PR"
+          "imagetech", "Campo Grande, MS" ],
+        locations
+    )
+
+[<Fact>]
+let ``every role from DB1 on was remote, Imagetech was on-site`` () =
+    for c in profile.Companies do
+        for r in c.Roles do
+            Assert.True((r.Remote = (c.Dir <> "imagetech")), sprintf "%s %A has the wrong work mode" c.Dir r.Title)
+
+[<Fact>]
 let ``Stone has three roles spanning Dec 2020 to Dec 2025`` () =
     let stone = profile.Companies |> List.find (fun c -> c.Name = "Stone")
     Assert.Equal(3, List.length stone.Roles)
