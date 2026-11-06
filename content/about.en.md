@@ -1,3 +1,5 @@
-I'm Vinicius, a senior backend software engineer with {{years}} years of experience. I work mostly with C#, ASP.NET Core, RabbitMQ and Azure, and I care about system design, observability and technical documentation.
+I'm Vinicius, a backend software engineer with {{years}} years of experience, currently a SWE III at Mindbody. I work on the backend of the Branded App and on migrating legacy PHP applications to a new stack with C# and Next.js.
 
-Throughout my career I've been recognized for strong organizational skills alongside my engineering work, and for kind, clear communication that helps build a supportive work environment.
+Before that, I spent five years at Stone on Advance Payment, a core financial product, where I learned to keep high-volume systems fast and to ship within Central Bank of Brazil regulations.
+
+I care about system design, observability and clear technical documentation, and I'm known for organized, kind and direct communication.
