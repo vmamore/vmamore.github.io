@@ -18,14 +18,19 @@ type Role =
       End: YearMonth option
       /// None = show title and dates only
       Summary: Localized option
-      Tech: string list }
+      Tech: string list
+      /// true = remote, false = on-site
+      Remote: bool }
 
 /// Dir is the folder name shown in the terminal listing, e.g. "stone".
-/// Logo is a site path such as "/logos/stone.png" (None = monogram). Roles are newest first.
+/// Logo is a site path such as "/logos/stone.png" (None = monogram).
+/// Url is the company's site; Location is where the company is based. Roles are newest first.
 type Company =
     { Name: string
       Dir: string
       Logo: string option
+      Url: string
+      Location: string
       Roles: Role list }
 
 type Education =
