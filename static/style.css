@@ -73,7 +73,6 @@ section { display: flex; flex-direction: column; gap: .4rem; }
 /* Current job stands out; past jobs step back but stay readable (muted is 5.01:1 on --bg). */
 .tag { color: var(--accent); font-size: .8rem; }
 .company.past .company-head strong { color: var(--accent-dim); }
-.company.past .logo { filter: grayscale(1); opacity: .75; }
 .company.past .role-title { color: var(--fg-past); }
 .company.past .summary { color: var(--muted); }
 
