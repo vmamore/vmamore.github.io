@@ -12,15 +12,18 @@ let htmlLang lang =
     | Pt -> "pt-BR"
     | En -> "en"
 
+/// English is the default language and lives at the root.
+let defaultLang = En
+
 let pagePath lang =
     match lang with
-    | Pt -> "/"
-    | En -> "/en/"
+    | En -> "/"
+    | Pt -> "/pt/"
 
 let outputFile lang =
     match lang with
-    | Pt -> "index.html"
-    | En -> "en/index.html"
+    | En -> "index.html"
+    | Pt -> "pt/index.html"
 
 type Strings =
     { CmdAbout: string

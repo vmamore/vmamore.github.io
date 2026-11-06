@@ -84,9 +84,9 @@ let private langSwitch current =
         else
             a(href = pagePath lang, hreflang = htmlLang lang, lang = htmlLang lang) { text (code lang) }
     nav(class' = "lang", ariaLabel = "Language / Idioma") {
-        item Pt
-        text " / "
         item En
+        text " / "
+        item Pt
     }
 
 let private stack =
@@ -128,7 +128,7 @@ let page (model: PageModel) =
             link(rel = "canonical", href = baseUrl + pagePath lang)
             alternate "pt-BR" (pagePath Pt)
             alternate "en" (pagePath En)
-            alternate "x-default" (pagePath Pt)
+            alternate "x-default" (pagePath defaultLang)
             link(rel = "icon", type' = "image/svg+xml", href = "/favicon.svg")
             link(rel = "preload", href = "/fonts/JetBrainsMono-Regular.woff2", type' = "font/woff2")
                 .attr("as", "font")
