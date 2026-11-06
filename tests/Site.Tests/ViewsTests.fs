@@ -15,6 +15,7 @@ let private role title start finish summary tech : Role =
 let private acme: Company =
     { Name = "Acme Ltda"
       Dir = "acme"
+      Logo = Some "/logos/acme.png"
       Roles =
         [ role "Senior" (ym 2024 1) None (Some { Pt = "Resumo"; En = "Summary" }) [ "F#"; "SQL" ]
           role "Junior" (ym 2022 1) (Some(ym 2023 12)) None [] ] }
@@ -22,6 +23,7 @@ let private acme: Company =
 let private solo: Company =
     { Name = "Solo"
       Dir = "solo"
+      Logo = None
       Roles = [ role "Dev" (ym 2020 1) (Some(ym 2021 6)) None [] ] }
 
 let private sample: Profile =
@@ -109,6 +111,12 @@ let ``current company is tagged and past companies are marked as past`` () =
     contains "<strong title=\"Acme Ltda\">acme/</strong><span class=\"tag\">● atual</span>" pt
     Assert.Equal(1, count "class=\"tag\"" pt)
     contains "<span class=\"tag\">● current</span>" (renderFor En)
+
+[<Fact>]
+let ``each company shows its logo, or a monogram when it has none`` () =
+    let pt = renderFor Pt
+    contains "<img class=\"logo\" src=\"/logos/acme.png\" alt=\"\" width=\"18\" height=\"18\"><strong title=\"Acme Ltda\">" pt
+    contains "<span class=\"logo monogram\" aria-hidden=\"true\">S</span><strong title=\"Solo\">" pt
 
 [<Fact>]
 let ``single-role company does not repeat the role dates`` () =

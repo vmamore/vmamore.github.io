@@ -10,6 +10,7 @@ let contentType (path: string) =
     | ".css" -> "text/css; charset=utf-8"
     | ".svg" -> "image/svg+xml"
     | ".woff2" -> "font/woff2"
+    | ".png" -> "image/png"
     | ".txt" -> "text/plain; charset=utf-8"
     | _ -> "application/octet-stream"
 

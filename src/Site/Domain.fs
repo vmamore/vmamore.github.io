@@ -20,8 +20,13 @@ type Role =
       Summary: Localized option
       Tech: string list }
 
-/// Dir is the folder name shown in the terminal listing, e.g. "stone". Roles are newest first.
-type Company = { Name: string; Dir: string; Roles: Role list }
+/// Dir is the folder name shown in the terminal listing, e.g. "stone".
+/// Logo is a site path such as "/logos/stone.png" (None = monogram). Roles are newest first.
+type Company =
+    { Name: string
+      Dir: string
+      Logo: string option
+      Roles: Role list }
 
 type Education =
     { School: string

@@ -72,6 +72,13 @@ let ``every root-relative link and font url resolves to a built file`` () =
         Assert.True((Server.resolve out url).IsSome, sprintf "broken link %s" url)
 
 [<Fact>]
+let ``every company in the profile has a logo file in static`` () =
+    for company in Data.profile.Companies do
+        let logo = Assert.IsType<string>(company.Logo |> Option.toObj)
+        Assert.StartsWith("/logos/", logo)
+        Assert.True(File.Exists(Path.Combine(root, "static", logo.TrimStart('/'))), sprintf "missing %s" logo)
+
+[<Fact>]
 let ``a rebuild wipes stale files`` () =
     let out = build ()
     File.WriteAllText(Path.Combine(out, "stale.txt"), "old")

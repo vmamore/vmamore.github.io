@@ -59,7 +59,9 @@ section { display: flex; flex-direction: column; gap: .4rem; }
 .companies, .roles, .education { list-style: none; padding: 0; }
 .companies { display: flex; flex-direction: column; gap: 1rem; padding-top: .4rem; }
 .company { display: flex; flex-direction: column; gap: .2rem; }
-.company-head { display: flex; flex-wrap: wrap; gap: 0 1ch; }
+.company-head { display: flex; flex-wrap: wrap; align-items: center; gap: 0 1ch; }
+.logo { width: 18px; height: 18px; flex: none; border-radius: 4px; background: #fff; object-fit: contain; }
+.monogram { display: inline-grid; place-items: center; background: var(--rule); color: var(--fg); font-size: .7rem; font-weight: 600; line-height: 1; }
 .company-head strong { color: var(--accent); font-weight: 600; }
 .role { display: grid; grid-template-columns: 2ch 1fr; column-gap: 1ch; }
 .branch { color: var(--muted); }
@@ -71,6 +73,7 @@ section { display: flex; flex-direction: column; gap: .4rem; }
 /* Current job stands out; past jobs step back but stay readable (muted is 5.01:1 on --bg). */
 .tag { color: var(--accent); font-size: .8rem; }
 .company.past .company-head strong { color: var(--accent-dim); }
+.company.past .logo { filter: grayscale(1); opacity: .75; }
 .company.past .role-title { color: var(--fg-past); }
 .company.past .summary { color: var(--muted); }
 
