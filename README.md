@@ -1,7 +1,7 @@
 # vmamore.com.br
 
 Personal site of Vinicius Mamoré. Built with a small F# static site generator
-(Giraffe.ViewEngine + Markdig) and deployed to GitHub Pages.
+(Oxpecker.ViewEngine + Markdig) and deployed to GitHub Pages.
 
 ## Run locally
 
