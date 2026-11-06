@@ -62,7 +62,7 @@ type Role =
       Location: string option
       Summary: Localized option      // None = title and dates only
       Tech: string list }
-type Company = { Name: string; Roles: Role list }   // roles newest first
+type Company = { Name: string; Dir: string; Roles: Role list }   // Dir = terminal folder name, e.g. "stone"; roles newest first
 type Education = { School: string; Course: Localized; StartYear: int; EndYear: int }
 type Profile =
     { Name: string
@@ -125,11 +125,31 @@ translated by Claude and reviewed by Vinicius.
   en `1 year`, `2 years`, `1 month`, `3 months`, `1 year 2 months`.
 - Company span = earliest role start → latest role end (or current).
 
-## Styling
+## Styling — "Terminal", green (chosen 2026-11-05 from the style previews)
 
-- Single `style.css`, system font stack, one column (`max-width: ~42rem`).
-- Light/dark via `prefers-color-scheme`; colors as CSS custom properties.
-- No JavaScript, no web fonts, no images in v1 (favicon only).
+Reference preview: https://claude.ai/artifact/HzsqaSR7acdtyPGgv3apz1 (option B, green).
+
+- Single `style.css`, one column (`max-width: 44rem`), side gutter ≥ 16px.
+- **Always dark** (single look, no light theme): `color-scheme: dark`.
+  Tokens: `--bg #15171a`, `--fg #d9d6cf`, `--muted #8a877f`, `--rule #2a2d31`,
+  `--accent #7ee08f`.
+- Font: **JetBrains Mono** v2.304 (OFL), full woff2 files (Regular, SemiBold —
+  they include the box-drawing glyphs `├─└`) self-hosted in `static/fonts/` with
+  `OFL.txt`, `font-display: swap`; fallback
+  `ui-monospace, "Cascadia Code", Consolas, Menlo, monospace`. No external requests.
+- Sections are headed by a fake shell command, rendered as a real `<h2>` with the
+  prompt `~/vmamore $ ` added by CSS `::before`:
+  - pt: `whoami`, `cat sobre.md`, `ls experiencia/`, `cat formacao.md`
+  - en: `whoami`, `cat about.md`, `ls experience/`, `cat education.md`
+- `whoami` block: name (large, bold), headline · location (muted), links in accent.
+- Experience: each company is `<dir>/` in accent (full `Name` in a `title`
+  attribute) + span (muted, only for multi-role companies); roles listed with tree glyphs (`├─` for all but the
+  last, `└─` for the last), title + dates/duration (muted), summary, and a tech
+  line in muted prefixed by `# ` (full list, comma-separated).
+- Language toggle top-left: `pt / en`, current language in bold accent.
+- A blinking block caret at the end of the page; static when
+  `prefers-reduced-motion: reduce`.
+- No JavaScript, no images in v1 (favicon only).
 
 ## CLI and local dev
 
@@ -156,7 +176,8 @@ Note: "present" durations only refresh on a new build; acceptable for v1.
   years-only, months-only.
 - `{{years}}` replacement.
 - Build into a temp dir produces `index.html`, `en/index.html`, `style.css`,
-  `CNAME`, `favicon.svg`.
+  `CNAME`, `favicon.svg`, `fonts/JetBrainsMono-Regular.woff2`,
+  `fonts/JetBrainsMono-SemiBold.woff2` (static copy is recursive).
 - Each page has the right `lang`, the toggle points to the other page, and every
   root-relative `href` resolves to a file in the output.
 
