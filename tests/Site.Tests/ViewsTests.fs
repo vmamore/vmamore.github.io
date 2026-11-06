@@ -36,6 +36,10 @@ let private sample: Profile =
             StartYear = 2017
             EndYear = 2023 } ] }
 
+/// External links open in a new tab.
+let private ext (url: string) (label: string) =
+    sprintf "<a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">%s</a>" url label
+
 let private renderFor lang =
     render
         { Lang = lang
@@ -85,7 +89,7 @@ let ``whoami block shows name, headline, location and lowercase links`` () =
     let html = renderFor Pt
     contains "<h1 class=\"name\">Ana Teste</h1>" html
     contains "Engenheira · Campo Grande, MS" html
-    contains "<a href=\"https://github.com/ana\">github</a>" html
+    contains (ext "https://github.com/ana" "github") html
 
 [<Fact>]
 let ``about html is inserted as-is`` () =
@@ -127,13 +131,27 @@ let ``accented text is not entity-encoded`` () =
 let ``footer credits the stack, the host and links the source`` () =
     let pt = renderFor Pt
     contains "© 2026 Ana Teste" pt
-    contains "feito com <a href=\"https://fsharp.org\">F#</a>, <a href=\"https://github.com/giraffe-fsharp/Giraffe.ViewEngine\">Giraffe.ViewEngine</a>, <a href=\"https://github.com/xoofx/markdig\">Markdig</a>, <a href=\"https://www.jetbrains.com/lp/mono/\">JetBrains Mono</a>" pt
-    contains "hospedado no <a href=\"https://pages.github.com\">GitHub Pages</a>" pt
-    contains "<a href=\"https://github.com/vmamore/vmamore.github.io\">código-fonte</a>" pt
+    contains
+        ("feito com "
+         + ext "https://fsharp.org" "F#" + ", "
+         + ext "https://github.com/giraffe-fsharp/Giraffe.ViewEngine" "Giraffe.ViewEngine" + ", "
+         + ext "https://github.com/xoofx/markdig" "Markdig" + ", "
+         + ext "https://www.jetbrains.com/lp/mono/" "JetBrains Mono")
+        pt
+    contains ("hospedado no " + ext "https://pages.github.com" "GitHub Pages") pt
+    contains (ext "https://github.com/vmamore/vmamore.github.io" "código-fonte") pt
     let en = renderFor En
-    contains "built with <a href=\"https://fsharp.org\">F#</a>" en
-    contains "hosted on <a href=\"https://pages.github.com\">GitHub Pages</a>" en
-    contains "<a href=\"https://github.com/vmamore/vmamore.github.io\">source</a>" en
+    contains ("built with " + ext "https://fsharp.org" "F#") en
+    contains ("hosted on " + ext "https://pages.github.com" "GitHub Pages") en
+    contains (ext "https://github.com/vmamore/vmamore.github.io" "source") en
+
+[<Fact>]
+let ``only external links open in a new tab`` () =
+    let html = renderFor Pt
+    // 1 profile link + 4 stack links + GitHub Pages + source
+    Assert.Equal(7, count "target=\"_blank\"" html)
+    Assert.Equal(7, count "rel=\"noopener noreferrer\"" html)
+    contains "<a href=\"/en/\" hreflang=\"en\" lang=\"en\">en</a>" html
 
 [<Fact>]
 let ``page ends with the caret and has no email`` () =
