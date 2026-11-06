@@ -10,6 +10,7 @@
     <Compile Include="I18n.fs" />
     <Compile Include="Data.fs" />
     <Compile Include="Views.fs" />
+    <Compile Include="Server.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
