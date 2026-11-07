@@ -56,7 +56,8 @@ let ``Profile.careerStart is the earliest role start across companies`` () =
     let profile: Profile =
         { Name = "X"
           Headline = { Pt = ""; En = "" }
-          Location = ""
+          Location = { Pt = ""; En = "" }
+          TimeZone = ""
           Links = []
           Companies = [ a; b ]
           Education = [] }

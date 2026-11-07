@@ -151,7 +151,7 @@ let page (model: PageModel) =
                     section(id = "whoami") {
                         p(class' = "cmd", ariaHidden = true) { text "whoami" }
                         h1(class' = "name") { text prof.Name }
-                        p(class' = "dim") { text (sprintf "%s · %s" (Localized.get lang prof.Headline) prof.Location) }
+                        p(class' = "dim") { text (sprintf "%s · %s · %s" (Localized.get lang prof.Headline) (Localized.get lang prof.Location) prof.TimeZone) }
                         p(class' = "links") {
                             for label, url in prof.Links do
                                 externalLink url (label.ToLowerInvariant())
