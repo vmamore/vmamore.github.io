@@ -34,7 +34,8 @@ let private solo: Company =
 let private sample: Profile =
     { Name = "Ana Teste"
       Headline = { Pt = "Engenheira"; En = "Engineer" }
-      Location = "Campo Grande, MS"
+      Location = { Pt = "Campo Grande, MS, Brasil"; En = "Campo Grande, MS, Brazil" }
+      TimeZone = "UTC-4"
       Links = [ "GitHub", "https://github.com/ana" ]
       Companies = [ acme; solo ]
       Education =
@@ -101,7 +102,8 @@ let ``sections are headed by shell commands in the page language`` () =
 let ``whoami block shows name, headline, location and lowercase links`` () =
     let html = renderFor Pt
     contains "<h1 class=\"name\">Ana Teste</h1>" html
-    contains "Engenheira · Campo Grande, MS" html
+    contains "Engenheira · Campo Grande, MS, Brasil · UTC-4" html
+    contains "Engineer · Campo Grande, MS, Brazil · UTC-4" (renderFor En)
     contains (ext "https://github.com/ana" "github") html
 
 [<Fact>]

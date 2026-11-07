@@ -42,7 +42,10 @@ type Education =
 type Profile =
     { Name: string
       Headline: Localized
-      Location: string
+      /// where I live, with the country spelled out per language
+      Location: Localized
+      /// e.g. "UTC-4"; shown after the location for remote employers
+      TimeZone: string
       /// (label, url)
       Links: (string * string) list
       /// newest first

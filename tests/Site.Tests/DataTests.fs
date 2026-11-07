@@ -58,11 +58,11 @@ let ``every company has an https site and a headquarters location`` () =
         Assert.False(System.String.IsNullOrWhiteSpace c.Location, sprintf "%s has no location" c.Name)
     let locations = profile.Companies |> List.map (fun c -> c.Dir, c.Location)
     Assert.Equal<(string * string) list>(
-        [ "mindbody", "San Luis Obispo, CA, USA"
-          "stone", "Rio de Janeiro, RJ"
-          "digix", "Campo Grande, MS"
-          "db1", "Maringá, PR"
-          "imagetech", "Campo Grande, MS" ],
+        [ "mindbody", "San Luis Obispo, CA, US"
+          "stone", "Rio de Janeiro, RJ, BR"
+          "digix", "Campo Grande, MS, BR"
+          "db1", "Maringá, PR, BR"
+          "imagetech", "Campo Grande, MS, BR" ],
         locations
     )
 

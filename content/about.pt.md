@@ -1,4 +1,4 @@
-Sou o Vinicius, engenheiro de software backend com {{years}} anos de experiência, hoje SWE III na Mindbody. Trabalho no backend do Branded App e na migração de aplicações legadas em PHP para uma nova stack com C# e Next.js.
+Sou o Vinicius, engenheiro de software backend em Campo Grande (MS), com {{years}} anos de experiência, hoje SWE III na Mindbody. Trabalho no backend do Branded App e na migração de aplicações legadas em PHP para uma nova stack com C# e Next.js.
 
 Antes disso, passei cinco anos na Stone, na Antecipação de Recebíveis, um produto financeiro central, onde aprendi a manter sistemas de alto volume performáticos e a entregar dentro das regulamentações do Banco Central.
 
